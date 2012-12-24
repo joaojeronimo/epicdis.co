@@ -49,13 +49,15 @@
 
 				var hashSplit = hash.split('/');
 				var nArgs = hashSplit.length;
-				if (nArgs > 0)
+				if (nArgs > 0) {
 					var color1 = hashSplit[0];
 					if (color1.length !== 7) { // Chances are,
 						color1 = hashSplit[0].substr(1); // we're not using a HEX value
 					}
-				if (nArgs > 1)
+				}
+				if (nArgs > 1) {
 					var color2 = hashSplit[1];
+				}
 
 				startStrobe(color1, color2);
 
