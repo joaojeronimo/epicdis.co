@@ -1,0 +1,110 @@
+<html>
+	<head>
+		<title>StrobeLightz</title>
+	</head>
+	<body>
+		<a href="https://github.com/joaojeronimo/epicdis.co"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png" alt="Fork me on GitHub"></a>
+		<!-- Strobe -->
+		<script>
+
+			var body = document.querySelector('body');
+
+			var startStrobe = function (color1, color2) {
+				color1 = color1 || '#fff';
+				color2 = color2 || '#000';
+				var interval = setInterval(function () {
+					body.style.backgroundColor = color1;
+					setTimeout(function () {
+						body.style.backgroundColor = color2;
+					}, 60);
+				}, 120);
+				return (interval);
+			}
+
+			var randomColor = function () {
+				return("#"+((1<<24)*Math.random()|0).toString(16));
+			}
+
+			var randomStrobe = function () {
+				return (startStrobe(randomColor(), randomColor()));
+			}
+
+
+			var main = function () {
+				var hash = window.location.hash;
+
+				if (hash === "#random") {
+					randomStrobe();
+					return;
+				}
+
+				if (hash === "#randomWalk") {
+					var strobeInterval = randomStrobe();
+					setInterval(function () {
+						clearInterval(strobeInterval);
+						strobeInterval = randomStrobe();
+					}, 1000);
+					return;
+				}
+
+				var hashSplit = hash.split('/');
+				var nArgs = hashSplit.length;
+				if (nArgs > 0)
+					var color1 = hashSplit[0];
+					if (color1.length !== 7) { // Chances are,
+						color1 = hashSplit[0].substr(1); // we're not using a HEX value
+					}
+				if (nArgs > 1)
+					var color2 = hashSplit[1];
+
+				startStrobe(color1, color2);
+
+			}
+
+
+			main();
+		</script>
+		<script src="http://connect.soundcloud.com/sdk.js"></script>
+		<script>
+			SC.initialize({
+			  client_id: 'YOUR_CLIENT_ID'
+			});
+
+
+			var possibleTracks = window.location.hash.substr(1).split('/');
+			var n = possibleTracks.length;
+			var tracks = [];
+			while (n--) {
+				var possibleTrack = possibleTracks[n];
+				if (possibleTrack == parseInt(possibleTrack)) {
+					if (possibleTrack.length !== 3 && possibleTrack.length !== 6) { // so it doesn't get mixed up with a hex color with only digits
+						tracks.push(possibleTrack);
+					}
+				}
+			}
+
+			function next () {
+				var track = tracks.pop();
+				if (track) {
+					SC.stream("/tracks/"+track, function(sound){
+						sound.play({
+							onfinish: function () {
+								next();
+							}
+						});
+					});
+				} else {
+					console.log('playlist finished :(')
+				}
+			}
+
+			next();
+
+			/*
+				Test this with:
+				http://localhost:8000/#green/blue/7823923/7127034
+			*/
+		</script>
+		<!-- SoundCloud -->
+	</body>
+</html>
