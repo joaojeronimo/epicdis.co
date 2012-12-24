@@ -6,7 +6,7 @@ All you need to start a party.
 
 Turn the lights off and go to [epicdis.co](http://epicdis.co)! You'll have a strobe light and a music player.
 
-Works better in fullscreen mode (F11 on most browsers).
+Works better in fullscreen mode (F11 on most browsers), even better if you stare at the screen from a short distance, and don't blink ;)
 
 ## Options ?
 
