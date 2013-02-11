@@ -32,7 +32,7 @@ Any numbers you put on the address will be treated as Track IDs for SoundCloud. 
 * Deadmau5: [http://epicdis.co/#green/black/27245259/15296772/15296650](http://epicdis.co/#green/black/27245259/15296772/15296650)
 
 #### And by popular demand, the
-[http://epicdis.co/#blue/pink/35273963](HARLEM SHAKE!)
+[HARLEM SHAKE!](http://epicdis.co/#blue/pink/35273963)
 
 ## TODO
 
